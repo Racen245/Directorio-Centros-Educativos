@@ -4,6 +4,13 @@ const CSV_URL =
 let schools = [];
 let activeCircuit = "Todos";
 let searchText = "";
+function normalizarTexto(texto) {
+    return (texto || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+}
 /* =========================
    LOAD DATA
 ========================= */
