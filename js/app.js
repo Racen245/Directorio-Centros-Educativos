@@ -124,7 +124,7 @@ function updateActiveButton(selectedCircuit) {
 ========================= */
 function searchSchools(query) {
 
-    searchText = query.toLowerCase().trim();
+   searchText = normalizarTexto(query);
 
     applyFilters();
 
@@ -152,10 +152,9 @@ function applyFilters() {
         filtered = filtered.filter(school => {
 
             return Object.values(school).some(value =>
-                String(value)
-                    .toLowerCase()
-                    .includes(searchText)
-            );
+    normalizarTexto(String(value))
+        .includes(searchText)
+);
 
         });
 
