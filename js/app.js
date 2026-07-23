@@ -280,4 +280,3 @@ document.getElementById("searchButton").addEventListener("click", function () {
     }
 
 });
-Se agregó el código de los centros educativos
