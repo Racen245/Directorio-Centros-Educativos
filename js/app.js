@@ -4,13 +4,6 @@ const CSV_URL =
 let schools = [];
 let activeCircuit = "Todos";
 let searchText = "";
-function normalizarTexto(texto) {
-    return (texto || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .trim();
-}
 /* =========================
    LOAD DATA
 ========================= */
@@ -27,7 +20,14 @@ function loadSchools() {
             complete: function (results) {
 
                 schools = results.data;
-                resolve();
+
+schools = results.data;
+
+console.log(schools[0]);
+console.log(schools[0].Codigo);
+console.log(Object.keys(schools[0]));
+
+resolve();
 
             },
 
@@ -51,6 +51,8 @@ return `
 
         <h2>${school.Nombre}</h2>
 
+        <p>🆔 <strong>Código:</strong> ${school.Codigo}</p>
+
         <p>📍 <strong>Circuito:</strong> ${school.Circuito}</p>
 
         <p>🏫 <strong>Categoría:</strong> ${school.Categoria}</p>
@@ -67,7 +69,8 @@ return `
         <p>👤 ${school.Director}</p>
 
     </div>
-`;}
+`;
+}
 
 /* =========================
    DISPLAY LIST
@@ -124,7 +127,7 @@ function updateActiveButton(selectedCircuit) {
 ========================= */
 function searchSchools(query) {
 
-   searchText = normalizarTexto(query);
+    searchText = query.toLowerCase().trim();
 
     applyFilters();
 
@@ -152,9 +155,10 @@ function applyFilters() {
         filtered = filtered.filter(school => {
 
             return Object.values(school).some(value =>
-    normalizarTexto(String(value))
-        .includes(searchText)
-);
+                String(value)
+                    .toLowerCase()
+                    .includes(searchText)
+            );
 
         });
 
